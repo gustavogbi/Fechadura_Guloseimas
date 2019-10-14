@@ -7,8 +7,8 @@ https://pythonacademy.com.br/blog/python-e-virtualenv-como-programar-em-ambiente
 
 
 - `virutalenv env` para criar a VirtualEnv de nome "env"
-- `source env/bin/activate` para ativar a VirtualEnv no Linux :fa-linux:
-- `env\Scripts\activate` para ativar a VirtualEnv no Windows :fa-windows:
+- `source env/bin/activate` para ativar a VirtualEnv no Linux
+- `env\Scripts\activate` para ativar a VirtualEnv no Windows
 - Caso dê problemas no PowerShell do :fa-windows:, executar este comando:
 - `Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser`
 - `deactivate` para sair da VirtualEnv
