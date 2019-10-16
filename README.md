@@ -18,5 +18,6 @@ Dentro da VirtualEnv, instalar o Django:
 - `pip install django`
 
 ## Rodar o servidor
+- `python manage.py makemigrations` para verficiar as alterações dos models
 - `python manage.py migrate` para criar as tabelas do banco de dados listados em INSTALLED_APPS em guloseimas/settings.py
 - `python manage.py runserver`
