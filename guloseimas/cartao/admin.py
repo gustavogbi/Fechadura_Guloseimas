@@ -28,3 +28,11 @@ class CartaoAdmin(admin.ModelAdmin):
 
     return response
   atualizar_saldo.short_description = "Atualizar Saldo"
+  '''
+  def AtualizarCartao(admin.ModelAdmin):
+    arquivo=open(texto.txt ,'r')
+
+    cartao = Cartao.objects.get(codigo="")
+    cartao.saldo = 
+    cartao.save()
+    '''
