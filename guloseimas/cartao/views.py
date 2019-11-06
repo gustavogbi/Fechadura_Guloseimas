@@ -4,10 +4,13 @@ from .models import Cartao
 
 def mostrar_cartoes(request):
   cartoes = Cartao.objects.all()
-  response = []
+  response = ""
   for cartao in cartoes:
-    response.append(cartao)
-    response.append("<br>")
-    response.append(cartao.saldo)
-    response.append("<br>")
+    cartao.saldo = 10.00
+    cartao.save()
+    response += cartao.codigo
+    response += "<br>"
+    response += str(cartao.saldo)
+    response += "<br>"
   return HttpResponse(response)
+
