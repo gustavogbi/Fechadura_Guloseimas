@@ -2,6 +2,9 @@
  Projeto da EJ.
 A organização dos commits devem acompanhar o seguinte [padrão](https://gist.github.com/gustavogbi/fcc50f61620ce572fd107ad33fde544f "padrão").
 
+## Requerimentos
+Este projeto requer o Python e o pip instalados
+
 ## Configurando a VirtualEnv
 https://pythonacademy.com.br/blog/python-e-virtualenv-como-programar-em-ambientes-virtuais
 
@@ -21,3 +24,4 @@ Dentro da VirtualEnv, instalar o Django:
 - `python manage.py makemigrations` para verficiar as alterações dos models
 - `python manage.py migrate` para criar as tabelas do banco de dados listados em INSTALLED_APPS em guloseimas/settings.py
 - `python manage.py runserver`
+- `python manage.py runserver 0.0.0.0:8000` para rodar o servidor disponível na LAN, que pode ser acessado pelo IP da máquina host
