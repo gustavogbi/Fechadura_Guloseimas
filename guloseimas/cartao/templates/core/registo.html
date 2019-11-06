@@ -1,0 +1,16 @@
+<html>
+<body>
+
+
+<form action="{% url 'cartao:mostrar_cartoes' %}" method="POST">
+  {% csrf_token %}
+  <input type="text" name="codigo">
+  <br>
+  <input type="number" name="saldo">
+  <button type="submit">Enviar</button>
+</form>
+
+
+
+</body>
+</html>

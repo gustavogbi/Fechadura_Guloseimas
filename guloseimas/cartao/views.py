@@ -3,14 +3,21 @@ from django.http import HttpResponse
 from .models import Cartao
 
 def mostrar_cartoes(request):
-  cartoes = Cartao.objects.all()
+  codigo = request.POST['codigo']
+  saldo = request.POST['saldo']
+  cartao = Cartao.objects.get(codigo=codigo)
   response = ""
-  for cartao in cartoes:
-    cartao.saldo = 10.00
+  if(float(cartao.saldo) - float(saldo)>=0):
+    cartao.saldo = float(cartao.saldo) - float(saldo)
     cartao.save()
-    response += cartao.codigo
-    response += "<br>"
-    response += str(cartao.saldo)
-    response += "<br>"
+    response="Sucesso!"
+  else:
+    response="Saldo Insuficiente"
+
+
   return HttpResponse(response)
+
+def bosta(request):
+
+  return render(request, 'core/registo.html')
 
