@@ -21,3 +21,15 @@ def bosta(request):
 
   return render(request, 'core/registo.html')
 
+def cadastro_cartao(request):
+  codigo = request.POST['codigo']
+  try:
+    cartao = Cartao.objects.get(codigo=codigo)
+    return HttpResponse("Cartão já cadastrado")
+  except:
+    cartao = Cartao(codigo=codigo, saldo=0)
+    cartao.save()
+    return HttpResponse("Sucesso!")
+
+def cadastrar_cartao(request):
+  return render(request, 'cadastrar_cartao.html')
