@@ -2,17 +2,23 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cartao
 
+def alterar_saldo(request):
+  return render(request, 'core/registo.html')
+
 def alterar_saldo2(request):
   codigo = request.POST['codigo']
   saldo = request.POST['saldo']
-  cartao = Cartao.objects.get(codigo=codigo)
   response = ""
-  if(float(cartao.saldo) - float(saldo)>=0):
-    cartao.saldo = float(cartao.saldo) - float(saldo)
-    cartao.save()
-    response="Sucesso!"
-  else:
-    response="Saldo Insuficiente"
+  try:
+    cartao = Cartao.objects.get(codigo=codigo)
+    if(float(cartao.saldo) - float(saldo)>=0):
+      cartao.saldo = float(cartao.saldo) - float(saldo)
+      cartao.save()
+      response="Sucesso!"
+    else:
+      response="Saldo Insuficiente"
+  except:
+    response += "Cartão inexistente"
   return HttpResponse(response)
 
 def mostrar_cartoes(request):
@@ -24,9 +30,6 @@ def mostrar_cartoes(request):
     response += str(cartao.saldo)
     response += "<br><br>"
   return HttpResponse(response)
-
-def alterar_saldo(request):
-  return render(request, 'core/registo.html')
 
 def cadastro_cartao(request):
   codigo = request.POST['codigo']

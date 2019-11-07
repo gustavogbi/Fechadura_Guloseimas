@@ -25,14 +25,12 @@ class CartaoAdmin(admin.ModelAdmin):
     #writer.writerow(field_names)
     #for obj in queryset:
       #row = writer.writerow([getattr(obj, field) for field in field_names])
+  
 
     return response
   atualizar_saldo.short_description = "Atualizar Saldo"
-  '''
-  def AtualizarCartao(admin.ModelAdmin):
-    arquivo=open(texto.txt ,'r')
 
-    cartao = Cartao.objects.get(codigo="")
-    cartao.saldo = 
-    cartao.save()
-    '''
+  list_display = ('codigo', 'saldo')
+  search_fields = ['codigo']
+  #prepopulated_fields = {"slug": ("codigo",)}
+  #admin.site.register(Post, PostAdmin)
