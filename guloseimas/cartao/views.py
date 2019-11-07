@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cartao
 
-def mostrar_cartoes(request):
+def alterar_saldo2(request):
   codigo = request.POST['codigo']
   saldo = request.POST['saldo']
   cartao = Cartao.objects.get(codigo=codigo)
@@ -13,12 +13,19 @@ def mostrar_cartoes(request):
     response="Sucesso!"
   else:
     response="Saldo Insuficiente"
-
-
   return HttpResponse(response)
 
-def bosta(request):
+def mostrar_cartoes(request):
+  cartoes = Cartao.objects.all()
+  response = ""
+  for cartao in cartoes:
+    response += cartao.codigo
+    response += "<br>"
+    response += str(cartao.saldo)
+    response += "<br><br>"
+  return HttpResponse(response)
 
+def alterar_saldo(request):
   return render(request, 'core/registo.html')
 
 def cadastro_cartao(request):
