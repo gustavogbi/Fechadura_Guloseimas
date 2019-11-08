@@ -7,10 +7,12 @@ def consultar_saldo(request):
   return render(request, 'consultar_saldo.html')
 
 def consultar_saldo2(request):
-  return HttpResponse("<input value=\"sucesso\">")
+  codigo = request.POST['codigo']
+  cartao = Cartao.objects.get(codigo=codigo)
+  return HttpResponse("<input value=\"{}\">".format(cartao.saldo))
 
 def alterar_saldo(request):
-  return render(request, 'core/registo.html')
+  return render(request, 'registro.html')
 
 def alterar_saldo2(request):
   codigo = request.POST['codigo']
@@ -21,11 +23,11 @@ def alterar_saldo2(request):
     if(float(cartao.saldo) - float(saldo)>=0 and desconto_balas(float(saldo))):
       cartao.saldo = float(cartao.saldo) - float(saldo)
       cartao.save()
-      response="<input value=\"sucesso\">"
+      response="<input value=\"sucesso\" id=\"resultado\">"
     else:
-      response="<input value=\"falha\">"
+      response="<input value=\"falha\" id=\"resultado\">"
   except:
-    response += "<input value=\"inexistente\">"
+    response += "<input value=\"inexistente\" id=\"resultado\">"
   return HttpResponse(response)
 
 def desconto_balas(preco):
@@ -38,26 +40,3 @@ def desconto_balas(preco):
   except:
     pass
   return False
-
-def mostrar_cartoes(request):
-  cartoes = Cartao.objects.all()
-  response = ""
-  for cartao in cartoes:
-    response += cartao.codigo
-    response += "<br>"
-    response += str(cartao.saldo)
-    response += "<br><br>"
-  return HttpResponse(response)
-
-def cadastro_cartao(request):
-  codigo = request.POST['codigo']
-  try:
-    cartao = Cartao.objects.get(codigo=codigo)
-    return HttpResponse("Cartão já cadastrado")
-  except:
-    cartao = Cartao(codigo=codigo, saldo=0)
-    cartao.save()
-    return HttpResponse("Sucesso!")
-
-def cadastrar_cartao(request):
-  return render(request, 'cadastrar_cartao.html')
