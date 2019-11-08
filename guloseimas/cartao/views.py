@@ -9,8 +9,13 @@ def consultar_saldo(request):
 
 def consultar_saldo2(request):
   codigo = request.POST['codigo']
-  cartao = Cartao.objects.get(codigo=codigo)
-  return HttpResponse("<input value=\"{}\">".format(cartao.saldo))
+  retorna = ""
+  try:
+    cartao = Cartao.objects.get(codigo=codigo)
+    retorna = str(cartao.saldo)
+  except:
+    retorna = "inexistente"
+  return HttpResponse("<input value=\"{}\">".format(retorna))
 
 def alterar_saldo(request):
   return render(request, 'registro.html')
