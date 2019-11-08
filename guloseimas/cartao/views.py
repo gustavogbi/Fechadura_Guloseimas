@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cartao
 from balas.models import Bala
+from django.core.mail import send_mail
 
 def consultar_saldo(request):
   return render(request, 'consultar_saldo.html')
@@ -15,13 +16,16 @@ def alterar_saldo(request):
   return render(request, 'registro.html')
 
 def alterar_saldo2(request):
+  nome = request.POST['bala']
+  bala = Bala.objects.get(nome=nome)
   codigo = request.POST['codigo']
-  saldo = request.POST['saldo']
   response = ""
   try:
     cartao = Cartao.objects.get(codigo=codigo)
-    if(float(cartao.saldo) - float(saldo)>=0 and desconto_balas(float(saldo))):
-      cartao.saldo = float(cartao.saldo) - float(saldo)
+    if(float(cartao.saldo) - float(bala.preco) >= 0 and bala.quantidade > 0):
+      bala.quantidade -= 1
+      bala.save()
+      cartao.saldo = float(cartao.saldo) - float(bala.preco)
       cartao.save()
       response="<input value=\"sucesso\" id=\"resultado\">"
     else:
@@ -40,3 +44,7 @@ def desconto_balas(preco):
   except:
     pass
   return False
+
+
+
+
