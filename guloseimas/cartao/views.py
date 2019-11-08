@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cartao
+from balas.models import Bala
+
+def consultar_saldo(request):
+  return render(request, 'consultar_saldo.html')
+
+def consultar_saldo2(request):
+  return HttpResponse("<input value=\"sucesso\">")
 
 def alterar_saldo(request):
   return render(request, 'core/registo.html')
@@ -11,15 +18,26 @@ def alterar_saldo2(request):
   response = ""
   try:
     cartao = Cartao.objects.get(codigo=codigo)
-    if(float(cartao.saldo) - float(saldo)>=0):
+    if(float(cartao.saldo) - float(saldo)>=0 and desconto_balas(float(saldo))):
       cartao.saldo = float(cartao.saldo) - float(saldo)
       cartao.save()
-      response="Sucesso!"
+      response="<input value=\"sucesso\">"
     else:
-      response="Saldo Insuficiente"
+      response="<input value=\"falha\">"
   except:
-    response += "Cartão inexistente"
+    response += "<input value=\"inexistente\">"
   return HttpResponse(response)
+
+def desconto_balas(preco):
+  try:
+    bala = Bala.objects.get(preco=preco)
+    if (bala.quantidade > 0):
+      bala.quantidade -= 1
+      bala.save()
+      return True
+  except:
+    pass
+  return False
 
 def mostrar_cartoes(request):
   cartoes = Cartao.objects.all()

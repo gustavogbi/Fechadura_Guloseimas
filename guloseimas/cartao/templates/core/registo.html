@@ -4,9 +4,9 @@
 
 <form action="{% url 'cartao:alterar_saldo2' %}" method="POST">
   {% csrf_token %}
-  <input type="text" name="codigo">
+  <input type="text" name="codigo" id="codigo">
   <br>
-  <input type="number" name="saldo">
+  <input type="text" name="saldo" id="saldo">
   <button type="submit">Enviar</button>
 </form>
 

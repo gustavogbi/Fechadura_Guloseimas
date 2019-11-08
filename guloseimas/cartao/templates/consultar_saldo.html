@@ -1,0 +1,12 @@
+<html>
+  <body>
+
+  <form action="{% url 'cartao:consultar_saldo2' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="codigo" id="codigo">
+    <br>
+    <button type="submit">Consultar</button>
+  </form>
+
+  </body>
+</html>
